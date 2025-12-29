@@ -1,7 +1,11 @@
+'use client';
+
+import { useState } from 'react';
 import { ModernTableWithPagination } from '@/components/ModernTableWithPagination';
+import { MultiSelectTable } from '@/components/MultiSelectTable';
 
 // Sample data for demonstration
-const sampleData = [
+const initialData = [
   { id: '001', name: 'Acme Corporation', category: 'Technology' },
   { id: '002', name: 'Bright Solutions Inc', category: 'Finance' },
   { id: '003', name: 'Creative Minds LLC', category: 'Marketing' },
@@ -50,43 +54,70 @@ const sampleData = [
 ];
 
 export default function Home() {
+  // State for multi-select table data (so deletions persist)
+  const [multiSelectData, setMultiSelectData] = useState(initialData.slice(0, 15)); // First 15 items
+
   return (
     <main className="min-h-screen bg-gradient-to-br from-zinc-50 to-zinc-100 p-8 dark:from-zinc-950 dark:to-zinc-900">
-      <div className="mx-auto max-w-7xl space-y-8">
+      <div className="mx-auto max-w-7xl space-y-12">
         {/* Header */}
         <header className="text-center">
           <h1 className="text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
-            Pagination & Modern Filtering Demo
+            Table UI/UX Learning Examples
           </h1>
           <p className="mt-2 text-zinc-600 dark:text-zinc-400">
-            This is an example of what Pagination does.
+            Learn pagination, filtering, and multi-select patterns
           </p>
-          <ul className="mt-2 text-zinc-600 dark:text-zinc-400 list-disc list-inside">
-            <li>
-                Dynamic Item Count per Page
-            </li>
-            <li>
-                Modern Filter UI/UX
-            </li>
-            <li>
-                Slightly Better Filtering (also Dynamic)
-            </li>
-          </ul>
-
-          <p className="mt-2 text-zinc-600 dark:text-zinc-400">
-            Note: This is not a good sample code but the functions within "app\component\ModernTableWithPagination" is the meat of the content
-          </p>
-
-
         </header>
 
-        {/* Table Component */}
-        <ModernTableWithPagination data={sampleData} />
-        
-          <p className="mt-2 text-zinc-600 dark:text-zinc-400">
-            Note the dataset is not important they are simply placeholders to test the Item Count and Pagination
-          </p>
+        {/* Section 1: Pagination & Filtering */}
+        <section className="space-y-4">
+          <div className="rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
+            <h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">
+              1. Pagination & Filtering
+            </h2>
+            <p className="mt-2 text-zinc-600 dark:text-zinc-400">
+              Features demonstrated:
+            </p>
+            <ul className="mt-2 list-inside list-disc text-zinc-600 dark:text-zinc-400">
+              <li>Dynamic Item Count per Page</li>
+              <li>Search/Filter Functionality</li>
+              <li>Sort by Name, ID, or Category</li>
+              <li>Ascending/Descending Order</li>
+            </ul>
+          </div>
 
+          <ModernTableWithPagination data={initialData} />
+          
+          <p className="text-center text-sm text-zinc-500 dark:text-zinc-400">
+            The code to do this is in: <code className="rounded bg-zinc-200 px-2 py-1 dark:bg-zinc-800">components/ModernTableWithPagination.tsx</code>
+          </p>
+        </section>
+
+        {/* Section 2: Multi-Select & Bulk Delete */}
+        <section className="space-y-4">
+          <div className="rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-zinc-900">
+            <h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">
+              2. Multi-Select & Bulk Delete
+            </h2>
+            <p className="mt-2 text-zinc-600 dark:text-zinc-400">
+              Features demonstrated:
+            </p>
+            <ul className="mt-2 list-inside list-disc text-zinc-600 dark:text-zinc-400">
+              <li>Checkbox-based Multi-Selection</li>
+              <li>Select All / Clear Selection</li>
+              <li>Bulk Delete with Confirmation</li>
+              <li>Individual Item Delete</li>
+              <li>Visual Feedback for Selected Items</li>
+            </ul>
+          </div>
+
+          <MultiSelectTable data={multiSelectData} onDataChange={setMultiSelectData} />
+          
+          <p className="text-center text-sm text-zinc-500 dark:text-zinc-400">
+            The code to do this is in: <code className="rounded bg-zinc-200 px-2 py-1 dark:bg-zinc-800">components/MultiSelectTable.tsx</code>
+          </p>
+        </section>
       </div>
     </main>
   );
